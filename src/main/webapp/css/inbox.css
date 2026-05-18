@@ -1,0 +1,114 @@
+/* ============================================================
+   PhishProof — inbox.css
+   Learner inbox / email client UI styles
+   ============================================================ */
+
+/* ── Top bar ───────────────────────────────────────────────── */
+.inbox-topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px; background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-dim);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+}
+.topbar-brand {
+  font-family: var(--font-ui); font-size: 18px;
+  font-weight: 700; color: #fff; letter-spacing: 1px;
+}
+.topbar-brand span { color: var(--accent-blue); }
+.topbar-user { display: flex; align-items: center; gap: 12px; }
+.user-chip {
+  font-size: 13px; color: var(--text-secondary);
+  background: var(--border-dim); padding: 4px 12px; border-radius: 20px;
+}
+.btn-logout {
+  font-size: 12px; font-family: var(--font-mono);
+  color: var(--accent-red); border: 1px solid rgba(220,53,69,0.3);
+  padding: 5px 14px; border-radius: 2px; text-decoration: none;
+  transition: all 0.15s;
+}
+.btn-logout:hover { background: rgba(220,53,69,0.1); text-decoration: none; color: var(--accent-red); }
+
+/* ── Layout ────────────────────────────────────────────────── */
+.inbox-layout {
+  display: flex; margin-top: 56px; min-height: calc(100vh - 56px);
+}
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+.inbox-sidebar {
+  width: 220px; flex-shrink: 0;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-dim);
+  padding: 20px 0;
+}
+.folder {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px; font-size: 14px; font-weight: 600;
+  color: var(--text-secondary); cursor: pointer;
+  border-left: 3px solid transparent; transition: all 0.15s;
+}
+.folder:hover { color: var(--text-primary); background: var(--bg-hover); }
+.folder.active {
+  color: var(--accent-blue);
+  border-left-color: var(--accent-blue);
+  background: rgba(0,180,255,0.05);
+}
+.folder-count {
+  font-family: var(--font-mono); font-size: 11px;
+  background: var(--accent-blue); color: #000;
+  padding: 1px 7px; border-radius: 10px; font-weight: 700;
+}
+.inbox-info {
+  padding: 16px 20px; margin-top: 8px;
+  font-size: 12px; color: var(--text-muted); line-height: 1.7;
+}
+.inbox-info strong { color: var(--accent-yellow); }
+.inbox-info p { margin-bottom: 6px; }
+
+/* ── Email list ────────────────────────────────────────────── */
+.email-list { flex: 1; background: var(--bg-primary); }
+.email-list-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-dim);
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+.email-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-dim);
+  cursor: pointer; transition: background 0.15s;
+  position: relative;
+}
+.email-item:hover { background: var(--bg-hover); }
+.email-item.unread { background: rgba(0,180,255,0.025); }
+.email-avatar { font-size: 24px; margin-top: 2px; flex-shrink: 0; }
+.email-body   { flex: 1; min-width: 0; }
+.email-from   { font-size: 13px; font-family: var(--font-mono); color: var(--text-secondary); margin-bottom: 2px; }
+.email-subject {
+  font-size: 15px; color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.email-item.unread .email-subject { color: #fff; }
+.email-preview { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.email-meta   { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.email-time   { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+.unread-dot   { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); }
+.submitted-badge { font-size: 10px; color: var(--accent-red); font-family: var(--font-mono); }
+.empty-inbox  { text-align: center; padding: 80px 20px; color: var(--text-muted); }
+.empty-icon   { font-size: 48px; margin-bottom: 12px; }
+
+/* ── Fake email viewer in modal ─────────────────────────────── */
+.fake-email-view { font-family: Arial, sans-serif; }
+.fake-email-header {
+  font-size: 13px; color: var(--text-secondary);
+  font-family: var(--font-mono); line-height: 2;
+}
+.fake-email-body {
+  padding: 20px 0; font-size: 15px;
+  color: var(--text-primary); line-height: 1.8;
+}
+.fake-email-body p { margin-bottom: 14px; }
+.report-question { font-size: 14px; color: var(--text-primary); }
