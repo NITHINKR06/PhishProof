@@ -4,35 +4,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * DBConnection — Manages MySQL database connections.
- * Update DB_URL, DB_USER, DB_PASSWORD to match your environment.
- */
 public class DBConnection {
 
-    private static final String DB_URL      = "jdbc:mysql://localhost:3306/phishproof_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String DB_USER     = "root";
-    private static final String DB_PASSWORD = "your_password_here";
-    private static final String DB_DRIVER   = "com.mysql.cj.jdbc.Driver";
+    // Reads from Railway environment variables automatically
+    // Falls back to localhost for local development
+    private static final String DB_HOST = System.getenv("MYSQLHOST")     != null ? System.getenv("MYSQLHOST")     : "localhost";
+    private static final String DB_PORT = System.getenv("MYSQLPORT")     != null ? System.getenv("MYSQLPORT")     : "3306";
+    private static final String DB_NAME = System.getenv("MYSQLDATABASE") != null ? System.getenv("MYSQLDATABASE") : "phishproof_db";
+    private static final String DB_USER = System.getenv("MYSQLUSER")     != null ? System.getenv("MYSQLUSER")     : "root";
+    private static final String DB_PASS = System.getenv("MYSQLPASSWORD") != null ? System.getenv("MYSQLPASSWORD") : "your_local_password";
+
+    private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME
+            + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
     static {
         try {
-            Class.forName(DB_DRIVER);
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("MySQL JDBC Driver not found: " + e.getMessage(), e);
+            throw new RuntimeException("MySQL JDBC Driver not found", e);
         }
     }
 
-    /**
-     * Returns a new connection to the phishproof_db database.
-     */
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
     }
 
-    /**
-     * Safely closes a connection (null-safe).
-     */
     public static void close(Connection conn) {
         if (conn != null) {
             try { conn.close(); } catch (SQLException ignored) {}
